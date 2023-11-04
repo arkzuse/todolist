@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useUser, useUserDispatch} from "../utils/UserContext.jsx";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
     const users = useUser();
@@ -26,7 +26,10 @@ export default function Login() {
     return (
         <div>
             <h1>Login</h1>
-            <Link to='/signup'>Signup</Link>
+            <button onClick={() => {
+                window.location.reload()
+                navigate('/signup', { replace: true })
+            }}>Signup</button>
             <form>
                 <label htmlFor="username">Username</label>
                 <input type="text" id="username" value={username} onChange={(e) => setUserName(e.target.value)} />

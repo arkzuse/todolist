@@ -1,10 +1,12 @@
 import {useUser, useUserDispatch} from "../utils/UserContext.jsx";
 import {useState} from "react";
+import {useTasks, useTasksDispatch} from "../utils/TaskContext.jsx";
 import {useNavigate} from "react-router-dom";
 
 export default function Signup() {
     const users = useUser();
-    const dispatch = useUserDispatch();
+    const userDispatch = useUserDispatch();
+    const taskDispatch = useTasksDispatch();
     const navigate = useNavigate();
 
     const [username, setUserName] = useState('')
@@ -20,14 +22,20 @@ export default function Signup() {
             return
         }
 
-        dispatch({type: "add", payload: {username, password}})
-        alert("Signup successful")
-        navigate('/')
+        taskDispatch({type: "addUser", payload: {username: username}})
+        userDispatch({type: "add", payload: {username: username, password: password}})
+        navigate('/', { replace: true })
     }
 
     return (
         <div>
             <h1>Signup</h1>
+            <button onClick={() => {
+                navigate('/', {replace: true})
+            }}>
+                go to login
+            </button>
+
             <form>
                 <label htmlFor="username">Username</label>
                 <input type="text" id="username" value={username} onChange={(e) => setUserName(e.target.value)} />

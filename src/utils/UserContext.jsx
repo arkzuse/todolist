@@ -1,4 +1,5 @@
-import {createContext, useReducer, useEffect, useContext} from 'react'
+import {createContext, useEffect, useContext} from 'react'
+import {useImmerReducer} from "use-immer";
 
 const UserContext = createContext(null)
 const UserDispatchContext = createContext(null)
@@ -10,7 +11,7 @@ const initialUser = {
 
 function UserProvider({children}) {
     // from local storage
-    const [users, dispatch] = useReducer(userReducer, JSON.parse(localStorage.getItem('users')) || initialUser)
+    const [users, dispatch] = useImmerReducer(userReducer, JSON.parse(localStorage.getItem('users')) || initialUser)
 
     useEffect(() => {
         localStorage.setItem('users', JSON.stringify(users))
@@ -25,25 +26,19 @@ function UserProvider({children}) {
     )
 }
 
-function userReducer(users, action) {
+function userReducer(draft, action) {
     switch (action.type) {
         case 'login': {
-            return {
-                ...users,
-                cur: action.payload
-            }
+            draft.cur = action.payload
+            return
         }
         case 'logout': {
-            return {
-                ...users,
-                cur: ""
-            }
+            draft.cur = ''
+            return
         }
         case 'add': {
-            return {
-                ...users,
-                list: [...users.list, {username: action.payload.username, password: action.payload.password}]
-            }
+            draft.list.push({username: action.payload.username, password: action.payload.password})
+            return
         }
     }
 }

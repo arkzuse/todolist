@@ -11,6 +11,7 @@ function TasksProvider({children}) {
 
     useEffect(() => {
         localStorage.setItem('tasks', JSON.stringify(tasks))
+        console.log(tasks, 'useEffect')
     }, [tasks])
 
     return (
@@ -30,21 +31,23 @@ function useTasksDispatch() {
     return useContext(TaskDispatchContext)
 }
 
-function tasksReducer(tasks, action) {
+function tasksReducer(state, action) {
     const user = action.payload.username
 
     switch (action.type) {
         case 'addUser': {
             return {
-                ...tasks,
-                [user]: []
+                // spread everything from state
+                ...state,
+                // add new user
+                [action.payload.username]: []
             }
         }
         case 'add': {
             return {
-                ...tasks,
+                ...state,
                 [user]: [
-                    ...tasks[user],
+                    ...state[user],
                     {
                         id: Date.now(),
                         text: action.payload.text,
@@ -55,41 +58,40 @@ function tasksReducer(tasks, action) {
         }
         case 'delete': {
             return {
-                ...tasks,
-                [user]: tasks[user].filter(task => task.id !== action.payload.id)
+                ...state,
+                [user]: state[user].filter(task => task.id !== action.payload.id)
             }
         }
         case 'toggleDone': {
             return {
-                ...tasks,
-                [user]: tasks[user].map(task => {
+                ...state,
+                [user]: state[user].map(task => {
                     if (task.id === action.payload.id) {
-                        console.log(task.id)
-                        console.log(action.payload.id)
                         return {
                             ...task,
                             done: !task.done
                         }
                     }
-
                     return task
                 })
             }
         }
         case 'rename': {
             return {
-                ...tasks,
-                [user]: tasks[user].map(task => {
+                ...state,
+                [user]: state[user].map(task => {
                     if (task.id === action.payload.id) {
                         return {
                             ...task,
                             text: action.payload.text
                         }
                     }
-
                     return task
                 })
             }
+        }
+        default: {
+            throw new Error(`Unhandled action type: ${action.type}`)
         }
     }
 }
