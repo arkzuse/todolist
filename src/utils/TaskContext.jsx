@@ -31,12 +31,66 @@ function useTasksDispatch() {
 }
 
 function tasksReducer(tasks, action) {
+    const user = action.payload.username
+
     switch (action.type) {
-        case 'add':
+        case 'addUser': {
             return {
                 ...tasks,
-
+                [user]: []
             }
+        }
+        case 'add': {
+            return {
+                ...tasks,
+                [user]: [
+                    ...tasks[user],
+                    {
+                        id: Date.now(),
+                        text: action.payload.text,
+                        done: false
+                    }
+                ]
+            }
+        }
+        case 'delete': {
+            return {
+                ...tasks,
+                [user]: tasks[user].filter(task => task.id !== action.payload.id)
+            }
+        }
+        case 'toggleDone': {
+            return {
+                ...tasks,
+                [user]: tasks[user].map(task => {
+                    if (task.id === action.payload.id) {
+                        console.log(task.id)
+                        console.log(action.payload.id)
+                        return {
+                            ...task,
+                            done: !task.done
+                        }
+                    }
+
+                    return task
+                })
+            }
+        }
+        case 'rename': {
+            return {
+                ...tasks,
+                [user]: tasks[user].map(task => {
+                    if (task.id === action.payload.id) {
+                        return {
+                            ...task,
+                            text: action.payload.text
+                        }
+                    }
+
+                    return task
+                })
+            }
+        }
     }
 }
 
