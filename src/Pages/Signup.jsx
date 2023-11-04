@@ -1,7 +1,8 @@
 import {useUser, useUserDispatch} from "../utils/UserContext.jsx";
 import {useState} from "react";
-import {useTasks, useTasksDispatch} from "../utils/TaskContext.jsx";
+import {useTasksDispatch} from "../utils/TaskContext.jsx";
 import {useNavigate} from "react-router-dom";
+import '/src/App.css'
 
 export default function Signup() {
     const users = useUser();
@@ -24,24 +25,24 @@ export default function Signup() {
 
         taskDispatch({type: "addUser", payload: {username: username}})
         userDispatch({type: "add", payload: {username: username, password: password}})
-        navigate('/', { replace: true })
+        navigate('/', {replace: true})
     }
 
     return (
-        <div>
-            <h1>Signup</h1>
-            <button onClick={() => {
+        <div className='signup'>
+            <h1>Sign up</h1>
+            <button className='signup-button' onClick={() => {
                 navigate('/', {replace: true})
             }}>
-                go to login
+                Log in
             </button>
 
-            <form>
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" value={username} onChange={(e) => setUserName(e.target.value)} />
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" value={password} onChange={(e) => serPassword(e.target.value)} />
-                <button type="submit" onClick={e => handleSubmit(e)}>Signup</button>
+            <form className='signup-form'>
+                <input placeholder='username' type="text" id="username" value={username}
+                       onChange={(e) => setUserName(e.target.value)}/>
+                <input placeholder='password' type="password" id="password" value={password}
+                       onChange={(e) => serPassword(e.target.value)}/>
+                <button type="submit" onClick={e => handleSubmit(e)}>Sign up</button>
             </form>
         </div>
     )

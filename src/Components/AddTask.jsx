@@ -23,7 +23,7 @@ export default function AddTask() {
     console.log(tasks, 'add tasks')
 
     return (
-        <div>
+        <div className='addtask'>
             <input
                 placeholder="Add task"
                 value={text}

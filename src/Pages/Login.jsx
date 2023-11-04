@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useUser, useUserDispatch} from "../utils/UserContext.jsx";
 import {useNavigate} from "react-router-dom";
+import '/src/App.css'
 
 export default function Login() {
     const users = useUser();
@@ -17,25 +18,25 @@ export default function Login() {
 
         if (user) {
             dispatch({type: "login", payload: user.username})
-            navigate('/tasks', { replace: true })
+            navigate('/tasks', {replace: true})
         } else {
             alert("Invalid credentials")
         }
     }
 
     return (
-        <div>
-            <h1>Login</h1>
-            <button onClick={() => {
+        <div className='login'>
+            <h1>Todo App</h1>
+            <button className='signup-button' onClick={() => {
+                navigate('/signup', {replace: true})
                 window.location.reload()
-                navigate('/signup', { replace: true })
-            }}>Signup</button>
-            <form>
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" value={username} onChange={(e) => setUserName(e.target.value)} />
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" value={password} onChange={(e) => serPassword(e.target.value)} />
-                <button type="submit" onClick={e => handleLogIn(e)}>Login</button>
+            }}>Sign up
+            </button>
+            <form className='login-form'>
+                <input placeholder='username' type="text" id="username" value={username} onChange={(e) => setUserName(e.target.value)}/>
+                <input placeholder='password' type="password" id="password" value={password}
+                       onChange={(e) => serPassword(e.target.value)}/>
+                <button type="submit" onClick={e => handleLogIn(e)}>Log in</button>
             </form>
         </div>
     )

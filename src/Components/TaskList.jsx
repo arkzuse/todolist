@@ -7,14 +7,10 @@ export default function TaskList() {
     const tasks = useTasks()[user]
 
     return (
-        <div>
-            <ul>
+        <div className='tasklist'>
                 {tasks.map((task) => (
-                    <li key={task.id}>
-                        <Task task={task} />
-                    </li>
+                    <Task task={task} key={task.id}/>
                 ))}
-            </ul>
         </div>
     )
 }

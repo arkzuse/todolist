@@ -1,0 +1,78 @@
+.login, .signup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+
+.signup-button, .login-button {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+}
+
+.login-form, .signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+form > button {
+    width: 75%;
+}
+
+li {
+    list-style: none;
+}
+
+.tasklist {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    gap: 1rem;
+}
+
+.task {
+    display: flex;
+    gap: 1rem;
+}
+
+.task > label {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.task > div {
+    padding-left: 0.5rem;
+}
+
+.logout {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+}
+
+.taskpage {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.taskpage > h1 {
+    text-align: center;
+}
+
+.addtask {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.taskarea {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}

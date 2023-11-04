@@ -36,14 +36,16 @@ export default function Task({task}) {
     } else {
         taskContent = (
             <>
-                {task.text}
+                <div>
+                    {task.text}
+                </div>
                 <button onClick={() => setIsEditing(true)}>Edit</button>
             </>
         )
     }
 
     return (
-        <div>
+        <div className='task'>
             <label>
                 <input
                     type='checkbox'
@@ -51,8 +53,8 @@ export default function Task({task}) {
                     onChange={() => handleDone()}
                 />
                 {taskContent}
-                <button onClick={() => handleDelete()}>Delete</button>
             </label>
+            <button onClick={() => handleDelete()}>Delete</button>
         </div>
     )
 }
