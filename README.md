@@ -13,4 +13,4 @@ Currently, two official plugins are available:
 # Run
 `$ npm run dev`
 
-# Function Components, used Context and Reducer.
+## Functional Components, used Context and Reducer.
